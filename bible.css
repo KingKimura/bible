@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    background: rgb(165, 42, 42);
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    background: brown;
+    height: 80px;
+    width: 100%;
+    text-align: left;
+    color: white;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+    z-index: 10;
+}
+
+.sideMenu {
+    position: fixed;
+    display: flex;
+    top: 100px;
+    /* left: -200px; */
+    transition: .5s;
+    z-index: 20;
+}
+
+.menu_icon {
+    height: 30px;
+    fill: blue;
+}
+
+ol {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    /* position: fixed; */
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+    overflow: auto;
+    transition: .3s;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+        position: relative;
+    }
+}
+
+li {
+    text-transform: capitalize;
+    width: 200px;
+    height: 20px;
+    line-height: 20px;
+    background: brown;
+    font-size: 15px;
+    transition: .5s;
+    margin-top: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: white;
+    &::marker {
+        color: white;
+    }
+    &:hover {
+        background: white;
+        color: brown;
+        border: 2px solid brown;
+    }
+}
+
+.content {
+    margin-left: 0px;
+    margin-top: 100px;
+    position: relative;
+    height: fit-content;
+    /* width: 85%; */
+    width: fit-content;
+    background-color: rgb(66, 66, 66);
+    z-index: 1;
+    right: -300px;
+    padding: 20px;
+    padding-top: 10px;
+    box-shadow: 10px 10px 50px 10px rgb(73, 69, 69);
+}
+
+p {
+    /* color: red; */
+    font-size: 20px;
+    width: 1000px;
+    /* background: rgb(54, 38, 38); */
+    margin: 0;
+}
+
+h2 {
+    position: fixed;
+    top: 0;
+    margin-left: 40%;
+    z-index: 10;
+    color: azure;
+    text-transform: capitalize;
+}
+
+.chapters {
+    position: fixed;
+    top: 200px;
+    right: 0px;
+    color: white;
+    font-size: 25px;
+    overflow-y: scroll;
+    height: 600px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+input {
+    transition: .5s;
+    width: 20px;
+    height: 20px;
+    font-size: 25px;
+}
+
+.grid-container {
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    background-color: #00000000;
+    padding: 10px;
+    gap: 10px 10px;
+    /* column-gap: 0px;
+    row-gap: 20px; */
+    transition: .5s;
+    animation: expan 2s infinite;
+}
+
+@keyframes expand {
+    50% {
+        gap: 50px;
+        /* grid-template-columns: auto auto auto auto; */
+    }
+}
+
+.grid-item {
+    background-color: brown;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    color: white;
+    transition: .3s;
+}
