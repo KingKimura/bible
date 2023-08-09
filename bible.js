@@ -6,7 +6,21 @@ const chapterID = document.querySelector('h2')
 let chapterHandler = document.querySelector('.chapters')
 let input = document.querySelector('input')
 let totalChpt = document.querySelector('.total')
-    // let btn = document.querySelector('.btn')
+const chptSelector = document.querySelector('.min-wid')
+
+let chpState = 0
+chptSelector.addEventListener('click', () => {
+    if (!chpState) {
+        chapterHandler.style = 'top:80px;'
+        chpState = 1
+    } else {
+
+        chapterHandler.style = 'top:-100vh;'
+        chpState = 0
+    }
+})
+
+// let btn = document.querySelector('.btn')
 const grid = document.querySelector('.grid-container')
 
 let openMenu = `<svg xmlns="http://www.w3.org/2000/svg" fill="white" height="40px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>`
@@ -23,12 +37,14 @@ function menuMgmt() {
     let sideMenu = document.querySelector('.sideMenu')
     if (!menuState) {
         menuIcons.innerHTML = openMenu
+
         menuState = 1
-        sideMenu.style = 'left: -205px;'
+        sideMenu.style = 'left: -240px;top:100px;'
+        menuIcons.style = `position : relative;left:30px`
     } else {
         menuIcons.innerHTML = closeMenu
         menuState = 0
-        sideMenu.style = 'left: 0px;'
+        sideMenu.style = 'left: 0px;top:100px'
 
     }
 }
@@ -171,7 +187,8 @@ function loadBook(kitabu, chpt) {
 
 
                 container.addEventListener('click', () => {
-                    // console.log("Woza");
+                    chapterHandler.style = `top:-100vh;`
+                        // console.log("Woza");
                     let items = document.querySelectorAll('.grid-item')
                         // items.forEach(item => {
                         //     item.style = 'background: white; color: brown;'
@@ -213,6 +230,7 @@ loadBook("mark", 1)
 
 
 function changeBook() {
+    let sideMenu = document.querySelector('.sideMenu')
     let bookList = document.querySelectorAll('li')
 
     bookList.forEach(el => {
@@ -225,8 +243,10 @@ function changeBook() {
 
             if (selectedBook != control) {
                 content.innerHTML = ''
-
+                menuMgmt()
+                chapterHandler.style = 'top:100px'
                 loadBook(selectedBook, 1)
+
             }
         })
     })
