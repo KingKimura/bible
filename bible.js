@@ -7,6 +7,7 @@ let chapterHandler = document.querySelector('.chapters')
 let input = document.querySelector('input')
 let totalChpt = document.querySelector('.total')
 const chptSelector = document.querySelector('.min-wid')
+let bibleContent = wholeBible
 
 let chpState = 0
 chptSelector.addEventListener('click', () => {
@@ -58,41 +59,38 @@ let current_read = ''
 menuIcons.addEventListener('click', menuMgmt)
 
 function loadMenu() {
-    let data = fetch(currentVersion)
-    data.then(res => {
-        res = res.json()
-        return res
-    }).then(content => {
-        console.log(content.verses[31102])
+    // console.log(wholebible['verses'])
 
-        let menuVerses = content.verses
+    let menuVerses = wholeBible.verses
 
-        let book = ''
-        let chapterCount = 0
-        let i = 0
+    let book = ''
+    let chapterCount = 0
+    let i = 0
+        // console.log(menuVerses);
 
 
+    menuVerses.forEach(element => {
+        let current_book = element.book_name
+            // console.log(current_book);
+        current_book = current_book.toLowerCase()
+        if (book != current_book) {
 
-        menuVerses.forEach(element => {
-            let current_book = element.book_name
-            current_book = current_book.toLowerCase()
-            if (book != current_book && count === 1) {
-
-                book = current_book
-                let li = document.createElement('li')
-                li.innerText = book
-                sideList.append(li)
+            book = current_book
+            let li = document.createElement('li')
+            li.innerText = book
+            sideList.append(li)
 
 
 
-                setTimeout(console.log(book), 1000)
+            // setTimeout(console.log(book), 1000)
+            // console.log(1);
 
-            }
-        })
-
-
+        }
     })
+
+
 }
+
 
 loadMenu()
 
@@ -109,121 +107,116 @@ function loadBook(kitabu, chpt) {
     count++
     kitabu = kitabu.toLowerCase()
     impt = kitabu
-    let data = fetch('./web.json')
-    data.then(res => {
-        res = res.json()
-        return res
-    }).then(res => {
-            // console.log(res);
-            let verses = res['verses']
-            let allbooks = []
-            let book = ''
-            let chapterCount = 0
-            let i = 0
+        // console.log(res);
+    let verses = wholeBible['verses']
+    let allbooks = []
+    let book = ''
+    let chapterCount = 0
+    let i = 0
 
 
 
-            verses.forEach(element => {
+    verses.forEach(element => {
 
-                let chapter = element.chapter
-                let current_verse = element.verse
-                let txt = element.text
-
-
-
-                let current_book = element.book_name
-
-                current_book = current_book.toLowerCase()
-
-
-                // if (book != current_book && count === 1) {
-
-                //     book = current_book
-                //     let li = document.createElement('li')
-                //     li.innerText = book
-                //         // sideList.append(li)
+        let chapter = element.chapter
+        let current_verse = element.verse
+        let txt = element.text
 
 
 
-                //     // console.log(book);
+        let current_book = element.book_name
 
-                // }
-
-                function loadVerses(chpt) {
-                    if (current_book === kitabu && chapter === chpt) {
-                        chapterID.innerText = `${current_book} - ${chpt}`
-                        control = current_book
-                        let p = document.createElement('p')
-                        p.innerHTML = `<sup>${current_verse}</sup>   ${txt}`
-                        content.append(p)
-                            // console.log(txt);
-                    }
-
-                }
-
-                loadVerses(chpt)
+        current_book = current_book.toLowerCase()
 
 
-                if (current_book === kitabu) {
-                    let x = element.chapter
+        // if (book != current_book && count === 1) {
 
-                    if (x > chapterCount) {
-                        chapterCount = x
-
-                    }
-                }
-            })
-
-            // input.max = chapterCount
-            // totalChpt.innerText = chapterCount
-            grid.innerHTML = ''
-
-            for (let i = 0; i < chapterCount; i++) {
-                let container = document.createElement('div')
-                container.className = 'grid-item'
-                container.innerText = i + 1
-
-                grid.append(container)
+        //     book = current_book
+        //     let li = document.createElement('li')
+        //     li.innerText = book
+        //         // sideList.append(li)
 
 
-                container.addEventListener('click', () => {
-                    chapterHandler.style = `top:-100vh;`
-                        // console.log("Woza");
-                    let items = document.querySelectorAll('.grid-item')
-                        // items.forEach(item => {
-                        //     item.style = 'background: white; color: brown;'
-                        // })
-                    container.style = 'background:white;color:brown;'
-                    let lbook = impt
-                    let val = i + 1
-                    val = Number(val)
-                    content.innerHTML = ''
-                    console.log("Val: " + val);
-                    // current_chapter = val
-                    // let current_read = lbook.toLowerCase()
-                    console.log("Book: " + lbook);
-                    loadBook(kitabu, val)
-                        // items[i].style = 'background:white;color:white;'
-                })
 
+        //     // console.log(book);
 
+        // }
+
+        function loadVerses(chpt) {
+            if (current_book === kitabu && chapter === chpt) {
+                chapterID.innerText = `${current_book} - ${chpt}`
+                control = current_book
+                let p = document.createElement('p')
+                p.innerHTML = `<sup>${current_verse}</sup>   ${txt}`
+                content.append(p)
+                    // console.log(txt);
             }
-
-
-
-
-
-
-
-
-            // sideList.style.overflowY = 'scroll'
-
 
         }
 
-    )
+        loadVerses(chpt)
+
+
+        if (current_book === kitabu) {
+            let x = element.chapter
+
+            if (x > chapterCount) {
+                chapterCount = x
+
+            }
+        }
+    })
+
+    // input.max = chapterCount
+    // totalChpt.innerText = chapterCount
+    grid.innerHTML = ''
+
+    for (let i = 0; i < chapterCount; i++) {
+        let container = document.createElement('div')
+        container.className = 'grid-item'
+        container.innerText = i + 1
+
+        grid.append(container)
+
+
+        container.addEventListener('click', () => {
+            // chapterHandler.style = `top:-100vh;`
+            // console.log("Woza");
+            let items = document.querySelectorAll('.grid-item')
+                // items.forEach(item => {
+                //     item.style = 'background: white; color: brown;'
+                // })
+                // container.style = 'background:white;color:brown;'
+            let lbook = impt
+            let val = i + 1
+            val = Number(val)
+            content.innerHTML = ''
+            console.log("Val: " + val);
+            // current_chapter = val
+            // let current_read = lbook.toLowerCase()
+            console.log("Book: " + lbook);
+            loadBook(kitabu, val)
+                // items[i].style = 'background:white;color:white;'
+        })
+
+
+    }
+
+
+
+
+
+
+
+
+    // sideList.style.overflowY = 'scroll'
+
 
 }
+
+
+
+
 
 loadBook("mark", 1)
 
